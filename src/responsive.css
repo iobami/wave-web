@@ -23,6 +23,10 @@
   .track-list-grid__wrapper {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .mid-routes {
+    min-width: 305px;
+  }
 }
 
 @media (min-width: 767.98px)  {

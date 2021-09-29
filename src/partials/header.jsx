@@ -1,16 +1,20 @@
-import React, { Fragment, useRef } from 'react';
+import React, { Fragment, useContext, useRef } from 'react';
 import { Link } from 'react-router-dom';
+import BarLoader from 'react-bar-loader';
 
-import { CoinStack, Grid, Logo, NavDropdown, PlusBlue } from '../components';
+import { CoinStack, Logo, NavDropdown, PlusBlue } from '../components';
+import { AppContext } from '../contexts';
 import { useActiveRoute, useOutsideClick } from '../hooks';
-import { connectWallet, routes } from '../utils';
+import { connectWallet } from '../utils';
+
+const middleItems = [
+  // { icon: <Grid />, title: 'Waves', route: routes.dashboardEntry.path },
+  // { icon: <Globe />, title: 'News', route: routes.dashboardEntry.path },
+  // { icon: <Question />, title: 'Help', route: routes.dashboardEntry.path }
+];
 
 export default function Header() {
-  const middleItems = [
-    { icon: <Grid />, title: 'Waves', route: routes.dashboardEntry.path },
-    // { icon: <Globe />, title: 'News', route: routes.dashboardEntry.path },
-    // { icon: <Question />, title: 'Help', route: routes.dashboardEntry.path }
-  ];
+  const [{ account, balance, isMining, waves }, { setAccount }] = useContext(AppContext);
 
   const navToggleRef = useRef(null);
 
@@ -27,15 +31,26 @@ export default function Header() {
 
   return (
     <Fragment>
+      <BarLoader color="#4447E2" height={isMining ? '1' : '0'} />
+
       <div className="tri-bloom-header">
         <div className="wrapper-size h-100">
           <div className="d-flex justify-content-between align-items-center h-100">
+            {false && (
+              <div className="d-flex justify-content-start align-items-center h-100">
+                <Logo />
+                <span aria-label="wave" role="img">👋</span>
+                <span className="ml-2">Hiii</span>
+              </div>
+            )}
+
             <div className="d-flex justify-content-start align-items-center h-100">
-              <Logo />
-              <span className="ml-2">Hiii</span>
+              <span aria-label="wave" role="img">👋</span>
+
+            <span className="ml-2">Waves | {waves || 0}</span>
             </div>
 
-            <div className="d-flex justify-content-start align-items-center h-100 hide-lg-desktop">
+            <div className="d-flex justify-content-start align-items-center h-100 hide-lg-desktop mid-routes">
               {middleItems.map(({ icon, title, route }, index) => (
                 <Link key={index} to={route}>
                   <div className={`nav route--item ${isActive(route)}`}>
@@ -51,11 +66,11 @@ export default function Header() {
             <div className="d-flex justify-content-start align-items-center h-100">
               <div className="d-flex justify-content-start align-items-center h-100">
                 <div className="d-flex justify-content-start align-items-center background-container--stack">
-                  <span className="cursor-pointer" onClick={connectWallet}><PlusBlue /></span>
+                  {!account && (<span className="cursor-pointer" onClick={() => connectWallet(setAccount)}><PlusBlue fill="#E24444" /></span>)}
 
-                  <div className="d-flex align-items-center ml-3">
+                  <div className={`d-flex align-items-center ${account ? 'mx-1' : 'ml-3'}`}>
                     <CoinStack />
-                    <span className="ml-1">0</span>
+                    <span className="ml-1">{balance || 0}</span>
                   </div>
                 </div>
               </div>

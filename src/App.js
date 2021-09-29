@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import { ThemeProvider } from './contexts';
+
+import { AppProvider, ThemeProvider } from './contexts';
 
 import MainLayout from './layouts/main';
 
@@ -12,15 +13,21 @@ export default function App() {
   return (
     <BrowserRouter>
       <ThemeProvider>
-        <Switch>
-          {routes.map((item, key) => (
-            <Route exact={item.path === '/' ? true : false} path={item.path} key={`${item.path}-${key}`}>
-              <MainLayout>
-                {item.component()}
-              </MainLayout>
-            </Route>
-          ))}
-        </Switch>
+        <AppProvider>
+          <Switch>
+            {routes.map((item, key) => {
+              const Component = () => item.component();
+              
+              return (
+                <Route exact={item.path === '/' ? true : false} path={item.path} key={`${item.path}-${key}`}>
+                  <MainLayout>
+                    <Component />
+                  </MainLayout>
+                </Route>
+              );
+            })}
+          </Switch>
+        </AppProvider>
       </ThemeProvider>
     </BrowserRouter>
   );

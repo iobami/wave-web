@@ -1,10 +1,11 @@
 import React, { Fragment, useContext } from 'react';
 
 import { Person, Sun, LogOut, Switch } from '../components';
-import { ThemeContext } from '../contexts';
+import { AppContext, ThemeContext } from '../contexts';
 import { toggleTheme } from '../utils';
 
 export default function MenuItems({ switchId }) {
+  const [{ account }] = useContext(AppContext);
   const [theme, setThemeMode] = useContext(ThemeContext);
 
   const setTheme = (e) => {
@@ -36,8 +37,13 @@ export default function MenuItems({ switchId }) {
         <hr />
 
         <div className="d-flex justify-content-start align-items-center item">
-          <LogOut id={switchId} />
-          <span className="ml-2 log-out">Disconnected</span>
+          <LogOut fill={account ? '#28a745' : null} id={switchId} />
+          
+          {account ? (
+            <span className="ml-2 log-out text-success">Connected</span>
+          ) : (
+            <span className="ml-2 log-out">Disconnected</span>
+          )}
         </div>
       </div>
 
