@@ -100,7 +100,7 @@ body {
 .nav.route--item {
   cursor: pointer;
   color: var(--tx-second-color);
-  opacity: 0.8;
+  opacity: 0.45;
 }
 
 .nav.route--item.active {
