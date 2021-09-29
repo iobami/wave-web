@@ -35,7 +35,7 @@ export const toggleTheme = (mode) => {
   }
 };
 
-export const getTheme = () => localStorage.getItem('theme');
+export const getTheme = () => localStorage.getItem('theme') || 'light';
 
 export const connectWallet = () => {
   alert('! upcoming feature :)');
