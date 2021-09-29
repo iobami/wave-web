@@ -5,7 +5,7 @@ import BarLoader from 'react-bar-loader';
 import { CoinStack, Logo, NavDropdown, PlusBlue } from '../components';
 import { AppContext } from '../contexts';
 import { useActiveRoute, useOutsideClick } from '../hooks';
-import { connectWallet } from '../utils';
+import { connectWallet, getBalance, getTotalWaves } from '../utils';
 
 const middleItems = [
   // { icon: <Grid />, title: 'Waves', route: routes.dashboardEntry.path },
@@ -14,7 +14,7 @@ const middleItems = [
 ];
 
 export default function Header() {
-  const [{ account, balance, isMining, waves }, { setAccount }] = useContext(AppContext);
+  const [{ account, balance, isMining, waves }, { setAccount, setBalance, setWaves }] = useContext(AppContext);
 
   const navToggleRef = useRef(null);
 
@@ -28,6 +28,13 @@ export default function Header() {
   };
 
   const [isActive] = useActiveRoute();
+  
+  const connect = () => {
+    connectWallet(setAccount);
+
+    getBalance().then((value) => setBalance(value));
+    getTotalWaves().then((value) => setWaves(value));
+  };
 
   return (
     <Fragment>
@@ -66,7 +73,7 @@ export default function Header() {
             <div className="d-flex justify-content-start align-items-center h-100">
               <div className="d-flex justify-content-start align-items-center h-100">
                 <div className="d-flex justify-content-start align-items-center background-container--stack">
-                  {!account && (<span className="cursor-pointer" onClick={() => connectWallet(setAccount)}><PlusBlue fill="#E24444" /></span>)}
+                  {!account && (<span className="cursor-pointer" onClick={connect}><PlusBlue fill="#E24444" /></span>)}
 
                   <div className={`d-flex align-items-center ${account ? 'mx-1' : 'ml-3'}`}>
                     <CoinStack />

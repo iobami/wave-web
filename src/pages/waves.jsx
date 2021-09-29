@@ -3,7 +3,7 @@ import { ethers, utils } from 'ethers';
 
 import '../App.css';
 import { AppContext } from '../contexts';
-import { connectWallet } from '../utils';
+import { connectWallet, getBalance, getTotalWaves } from '../utils';
 import contractABI from '../utils/WavePortal.json';
 
 const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
@@ -56,6 +56,13 @@ export default function Home() {
     }
   }
 
+  const callback = (account) => {
+    setAccount(account);
+
+    getBalance().then((value) => setBalance(value));
+    getTotalWaves().then((value) => setWaves(value));
+  };
+
   return (
     <div className="mainContainer">
 
@@ -70,12 +77,12 @@ export default function Home() {
           <span className="ft-20" aria-label="grin" role="img"> 🙃</span>
         </div>
 
-        <button className="btn btn-outline-blue btn-task w-100" onClick={account ? wave : () => connectWallet(setAccount)}>
+        <button className="btn btn-outline-blue btn-task w-100" onClick={account ? wave : () => connectWallet(callback)}>
           {isLoading ? (isMining ? 'Mining...' : 'Loading...') : 'Wave at Me'}
         </button>
 
         {!account && (
-          <button className="btn btn-danger w-100 mt-3" onClick={() => connectWallet(setAccount)}>
+          <button className="btn btn-danger w-100 mt-3" onClick={() => connectWallet(callback)}>
             Connect Metamask
           </button>
         )}

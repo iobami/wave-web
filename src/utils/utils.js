@@ -62,13 +62,8 @@ export const connectWallet = async (callback) => {
   }
 }
 
-export const checkIfWalletIsConnected = async (callback) => {
+const checkIfUserConnectedWallet = async (callback) => {
   const { ethereum } = window;
-
-  if (!ethereum) {
-    console.log("Make sure you have metamask!");
-    return;
-  }
 
   /*
   * Check if we're authorized to access the user's wallet
@@ -80,9 +75,24 @@ export const checkIfWalletIsConnected = async (callback) => {
     if (typeof callback === 'function') {
       callback(account);
     }
+
+    return true;
   } else {
     console.log("No authorized account found");
   }
+
+  return false;
+}
+
+export const checkIfWalletIsConnected = async (callback) => {
+  const { ethereum } = window;
+
+  if (!ethereum) {
+    console.log("Make sure you have metamask!");
+    return;
+  }
+
+  checkIfUserConnectedWallet(callback);
 }
 
 export const getBalance = async () => {
@@ -90,6 +100,10 @@ export const getBalance = async () => {
     const { ethereum } = window;
 
     if (ethereum) {
+      const userIsConnected = await checkIfUserConnectedWallet();
+
+      if (!userIsConnected) return '0';
+
       const provider = new ethers.providers.Web3Provider(ethereum);
       const signer = provider.getSigner();
 
@@ -111,6 +125,10 @@ export const getTotalWaves = async () => {
     const { ethereum } = window;
 
     if (ethereum) {
+      const userIsConnected = await checkIfUserConnectedWallet();
+
+      if (!userIsConnected) return 0;
+
       const provider = new ethers.providers.Web3Provider(ethereum);
       const signer = provider.getSigner();
 
