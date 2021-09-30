@@ -175,7 +175,7 @@ export const getAllWaves = async (callback) => {
       /*
        * Store our data in React State
        */
-      if (typeof callback === 'function') callback(cleanWaves);
+      if (typeof callback === 'function') callback(cleanWaves.reverse());
     } else {
       console.log("Ethereum object doesn't exist!")
     }
