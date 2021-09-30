@@ -142,3 +142,44 @@ export const getTotalWaves = async () => {
     return 0;
   }
 };
+
+export const getAllWaves = async (callback) => {
+  try {
+    const { ethereum } = window;
+    if (ethereum) {
+      const userIsConnected = await checkIfUserConnectedWallet();
+
+      if (!userIsConnected) return;
+
+      const provider = new ethers.providers.Web3Provider(ethereum);
+      const signer = provider.getSigner();
+      const waveportalContract = new ethers.Contract(contractAddress, contractABI.abi, signer);
+
+      /*
+       * Call the getAllWaves method from your Smart Contract
+       */
+      const waves = await waveportalContract.getAllWaves();
+
+
+      /*
+       * We only need address, timestamp, and message in our UI so let's
+       * pick those out
+       */
+
+      const cleanWaves = waves.map((wave) => ({
+        address: wave.waver,
+        timestamp: new Date(wave.timestamp * 1000),
+        message: wave.message
+      }));
+
+      /*
+       * Store our data in React State
+       */
+      if (typeof callback === 'function') callback(cleanWaves);
+    } else {
+      console.log("Ethereum object doesn't exist!")
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}

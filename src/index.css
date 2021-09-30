@@ -275,3 +275,21 @@ table, th, thead, tr, td {
 .ft-20 {
   font-size: 20px;
 }
+
+hr {
+  border-top: 1px solid var(--tx-main-color);
+}
+
+.form-control {
+  border-radius: 15px;
+  min-height: 41px;
+  color: var(--tx-main-color);
+  background-color: var(--bg-grey-color);
+  border: 1px solid var(--bg-second-color);
+}
+
+.form-control:focus {
+  color: var(--tx-main-color);
+  background-color: var(--bg-grey-color);
+  border: 1px solid var(--bg-second-color);
+}
