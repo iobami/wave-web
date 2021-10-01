@@ -12,7 +12,7 @@ const contractAddress = config.contractAddress;
 
 const checkIfUserHasSentAnyMessageEver = (address, waves) => {
   try {
-    return waves.find((item) => item.address === address);
+    return waves.find((item) => parseInt(item.address) === parseInt(address));
   } catch (error) {
     return false;
   }
