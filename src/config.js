@@ -1,4 +1,4 @@
-const contractAddress = '0xC9Fc923651DE8061B1e2Ac156F1d050e403Fb50B' || process.env.REACT_APP_CONTRACT_ADDRESS;
+const contractAddress = '0x298DFF86eBA91860B399d07106e21C83A23a7861' || process.env.REACT_APP_CONTRACT_ADDRESS;
 
 export default {
   contractAddress,

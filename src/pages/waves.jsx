@@ -32,7 +32,7 @@ export default function Home() {
 
         console.log("Retrieved total wave count...", count.toNumber());
 
-        const waveTxn = await waveportalContract.wave(form.text);
+        const waveTxn = await waveportalContract.wave(form.text, { gasLimit: 300000 });
 
         setIsMining(true);
         console.log("Mining...", waveTxn.hash);
@@ -50,6 +50,19 @@ export default function Home() {
         setBalance(Number.parseFloat(eth).toFixed(4));
         setWaves(count.toNumber());
         getAllWaves(setAllWaves);
+
+        /**
+         * Listen in for emitter events!
+         */
+        waveportalContract.on("NewWave", (from, timestamp, message) => {
+          console.log("NewWave", from, timestamp, message);
+
+          setAllWaves(prevState => [{
+            address: from,
+            timestamp: new Date(timestamp * 1000),
+            message: message,
+          }, ...prevState]);
+        });
 
         setForm({ ...form, text: '' });
       } else {
