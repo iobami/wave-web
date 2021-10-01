@@ -169,7 +169,7 @@ export const getAllWaves = async (callback) => {
 
       const cleanWaves = waves.map((wave) => ({
         address: wave.waver,
-        timestamp: new Date(wave.timestamp * 1000),
+        timestamp: getMessageTime(wave.timestamp * 1000),
         message: wave.message
       }));
 
@@ -182,5 +182,69 @@ export const getAllWaves = async (callback) => {
     }
   } catch (error) {
     console.log(error);
+  }
+}
+
+export function getMessageTime(date) {
+  try {
+    let message = 'just now';
+    let count;
+
+    let today = new Date().getFullYear();
+    const year = new Date(date).getFullYear();
+
+    if (today > year) {
+      count = today - year;
+      message = count > 1 ? `${count} years ago` : 'a year ago';
+      return message;
+    }
+
+    today = new Date().getMonth();
+    const month = new Date(date).getMonth();
+
+    if (today > month) {
+      count = today - month;
+      message = count > 1 ? `${count} months ago` : 'a month ago';
+      return message;
+    }
+
+    today = new Date().getDay();
+    const day = new Date(date).getDay();
+
+    if (today > day) {
+      count = today - day;
+      message = count > 1 ? `${count} days ago` : 'a day ago';
+      return message;
+    }
+
+    today = new Date().getHours();
+    const hours = new Date(date).getHours();
+
+    if (today > hours) {
+      count = today - hours;
+      message = count > 1 ? `${count} hours ago` : 'a hour ago';
+      return message;
+    }
+
+    today = new Date().getMinutes();
+    const minutes = new Date(date).getMinutes();
+
+    if (today > minutes) {
+      count = today - minutes;
+      message = count > 1 ? `${count} minutes ago` : 'a minute ago';
+      return message;
+    }
+
+    today = new Date().getSeconds();
+    const seconds = new Date(date).getSeconds();
+
+    if (today > seconds) {
+      count = today - seconds;
+      message = count > 1 ? `${count} seconds ago` : 'just now';
+    }
+
+    return message;
+  } catch (e) {
+    return 'few minutes ago';
   }
 }

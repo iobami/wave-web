@@ -2,14 +2,12 @@
   display: flex;
   justify-content: center;
   width: 100%;
-  margin-top: 64px;
 }
 
 .dataContainer {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  max-width: 600px;
 }
 
 .header {

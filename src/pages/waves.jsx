@@ -3,7 +3,7 @@ import { ethers, utils } from 'ethers';
 
 import '../App.css';
 import { AppContext } from '../contexts';
-import { connectWallet, getAllWaves, getBalance, getTotalWaves } from '../utils';
+import { connectWallet, getAllWaves, getBalance, getMessageTime, getTotalWaves } from '../utils';
 import contractABI from '../utils/WavePortal.json';
 import { WaveItem } from '../components';
 import config from '../config';
@@ -59,7 +59,7 @@ export default function Home() {
 
           setAllWaves(prevState => [{
             address: from,
-            timestamp: new Date(timestamp * 1000),
+            timestamp: getMessageTime(wave.timestamp * 1000),
             message: message,
           }, ...prevState]);
         });
@@ -122,7 +122,7 @@ export default function Home() {
           <div class="col-12 px-0 mb-3">
             <input
               type="text"
-              class="form-control"
+              className="form-control"
               placeholder="send me a wave"
               value={form.text} onChange={(e) => {
                 if (e.target?.value?.length) {
@@ -156,7 +156,7 @@ export default function Home() {
         )}
 
         {allWaves.map((wave, index) => (
-          <WaveItem wave={wave} key={index} />
+          <WaveItem account={account} wave={wave} key={index} />
         ))}
       </div>
     </div>
