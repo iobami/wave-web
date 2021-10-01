@@ -10,6 +10,14 @@ import config from '../config';
 
 const contractAddress = config.contractAddress;
 
+const checkIfUserHasSentAnyMessageEver = (address, waves) => {
+  try {
+    return waves.find((item) => item.address === address);
+  } catch (error) {
+    return false;
+  }
+};
+
 export default function Home() {
   const [{ account, isMining }, { setAccount, setBalance, setIsMining, setWaves }] = useContext(AppContext);
 
@@ -103,6 +111,8 @@ export default function Home() {
     }
   };
 
+  const sent = checkIfUserHasSentAnyMessageEver(account, allWaves);
+
   return (
     <div className="mainContainer">
 
@@ -118,8 +128,8 @@ export default function Home() {
           <span className="ft-20" aria-label="grin" role="img"> 🙃</span>
         </div>
 
-        <form class="needs-validation" novalidate onSubmit={onSubmit}>
-          <div class="col-12 px-0 mb-3">
+        <form className="needs-validation" novalidate onSubmit={onSubmit}>
+          <div className="col-12 px-0 mb-3">
             <input
               type="text"
               className="form-control"
@@ -134,7 +144,7 @@ export default function Home() {
             />
 
             {form.error && (
-              <div class="text-danger pl-2">
+              <div className="text-danger pl-2">
                 please enter a message, or a link. {':}'}
               </div>
             )}
@@ -156,7 +166,7 @@ export default function Home() {
         )}
 
         {allWaves.map((wave, index) => (
-          <WaveItem account={account} wave={wave} key={index} />
+          <WaveItem account={account} sent={sent} wave={wave} key={index} />
         ))}
       </div>
     </div>

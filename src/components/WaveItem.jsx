@@ -8,12 +8,12 @@ const getUser = (account, address) => {
   }
 };
 
-export default function WaveItem({ account, wave }) {
+export default function WaveItem({ account, sent, wave }) {
   const myMessage = getUser(account, wave.address);
 
   return (
     <Fragment>
-      <div className={`track-list-item mt-3 ${myMessage ? 'personal' : ''}`}>
+      <div className={`track-list-item mt-3 ${myMessage ? 'personal' : ''} ${sent ? '' : 'w-100'}`}>
         <div className="d-flex justify-content-between align-items-start position-relative mb-0">
           <span className="message">{wave.message}</span>
 

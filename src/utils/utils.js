@@ -150,10 +150,11 @@ export const getAllWaves = async (callback) => {
     if (ethereum) {
       const userIsConnected = await checkIfUserConnectedWallet();
 
-      if (!userIsConnected) return;
+      // if (!userIsConnected) return;
 
-      const provider = new ethers.providers.Web3Provider(ethereum);
-      const signer = provider.getSigner();
+      const provider = userIsConnected ? new ethers.providers.Web3Provider(ethereum) : ethers.getDefaultProvider(config.defaultProvider);
+      const signer = userIsConnected ? provider.getSigner() : provider;
+      
       const waveportalContract = new ethers.Contract(contractAddress, contractABI.abi, signer);
 
       /*
