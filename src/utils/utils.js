@@ -1,7 +1,8 @@
 import { ethers, utils } from 'ethers';
+import config from '../config';
 import contractABI from './WavePortal.json';
 
-const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
+const contractAddress = config.contractAddress;
 
 export const truncateString = (str, length) => {
   if (str.length <= length) return str;

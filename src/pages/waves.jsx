@@ -6,8 +6,9 @@ import { AppContext } from '../contexts';
 import { connectWallet, getAllWaves, getBalance, getTotalWaves } from '../utils';
 import contractABI from '../utils/WavePortal.json';
 import { WaveItem } from '../components';
+import config from '../config';
 
-const contractAddress = process.env.REACT_APP_CONTRACT_ADDRESS;
+const contractAddress = config.contractAddress;
 
 export default function Home() {
   const [{ account, isMining }, { setAccount, setBalance, setIsMining, setWaves }] = useContext(AppContext);
