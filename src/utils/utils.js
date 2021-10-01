@@ -222,7 +222,7 @@ export function getMessageTime(date) {
 
     if (today > hours) {
       count = today - hours;
-      message = count > 1 ? `${count} hours ago` : 'a hour ago';
+      message = count > 1 ? `${count} hours ago` : 'an hour ago';
       return message;
     }
 

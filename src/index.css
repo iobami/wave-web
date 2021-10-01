@@ -293,3 +293,11 @@ hr {
   background-color: var(--bg-grey-color);
   border: 1px solid var(--bg-second-color);
 }
+
+.dataContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 60%;
+  margin: auto;
+}

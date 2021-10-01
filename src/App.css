@@ -4,12 +4,6 @@
   width: 100%;
 }
 
-.dataContainer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
 .header {
   text-align: center;
   font-size: 32px;
@@ -18,7 +12,6 @@
 
 .bio {
   text-align: center;
-  color: gray;
   margin-top: 16px;
 }
 

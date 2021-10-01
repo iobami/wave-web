@@ -14,8 +14,8 @@ export default function WaveItem({ account, wave }) {
   return (
     <Fragment>
       <div className={`track-list-item mt-3 ${myMessage ? 'personal' : ''}`}>
-        <div className="d-flex justify-content-between align-items-start mb-0">
-          {wave.message}
+        <div className="d-flex justify-content-between align-items-start position-relative mb-0">
+          <span className="message">{wave.message}</span>
 
           <span className="time">{wave.timestamp.toString()}</span>
         </div>
@@ -41,9 +41,19 @@ export default function WaveItem({ account, wave }) {
           color: #EAEDF2;
         }
         
+        .track-list-item span.message {
+          width: 100%;
+          max-width: 100%;
+          word-wrap: break-word;
+        }
+
         .track-list-item span.time {
           min-width: max-content;
           font-size: 12px;
+          opacity: 0.8;
+          position: absolute;
+          right: -10px;
+          top: -16px;
         }
 
         @media (max-width: 767.98px) {
