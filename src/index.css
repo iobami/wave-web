@@ -42,6 +42,8 @@ code {
 
   --blue-color: #4447E2;
   --white: #FFFFFF;
+
+  --toastify-color-light: #DDE1E8;
 }
 
 html,
@@ -320,4 +322,24 @@ hr {
 
 .tri-bloom-header a:hover {
   opacity: 0.7;
+}
+
+.bio a.open-sea {
+  display: block;
+  color: var(--tx-main-color);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bio a.open-sea img {
+  width: 35px;
+  height: 35px;
+}
+
+.bio a.open-sea span {
+  margin-left: 6px;
+  font-size: 21px;
+  font-weight: 600;
 }

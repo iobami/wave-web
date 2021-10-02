@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
 import { AppProvider, ThemeProvider } from './contexts';
 
@@ -27,6 +28,8 @@ export default function App() {
               );
             })}
           </Switch>
+
+          <ToastContainer position="bottom-center" />
         </AppProvider>
       </ThemeProvider>
     </BrowserRouter>

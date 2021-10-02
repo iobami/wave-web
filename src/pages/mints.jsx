@@ -1,11 +1,26 @@
 import { ethers } from 'ethers';
 import React, { useContext, useEffect, useState } from 'react';
+import { toast, Flip } from 'react-toastify';
 
 import '../App.css';
 import { AppContext } from '../contexts';
 import contractABI from '../utils/MyEpicNFT.json';
-import { connectWallet, getBalance, getNftsData, getTotalWaves, setupEventListener } from '../utils';
+import { connectWallet, getBalance, getNftsData, getTheme, getTotalWaves, setupEventListener } from '../utils';
 import config from '../config';
+
+const nftMint = (url) => {
+  const Msg = () => <div>NFT minted ! <span aria-label="mints" role="img">💥</span> <a href={url} target="_blank" rel="noopener noreferrer">view collection</a></div>;
+  const toastId = 'custom-id';
+
+  const theme = getTheme();
+
+  toast.success(<Msg />, {
+    transition: Flip,
+    toastId,
+    theme,
+    autoClose: false,
+  });
+};
 
 export default function Mints() {
   const [{ account, isMining }, { setAccount, setBalance, setIsMining, setNfts, setWaves }] = useContext(AppContext);
@@ -26,7 +41,7 @@ export default function Mints() {
       const { ethereum } = window;
       setIsLoading(true);
 
-      setupEventListener();
+      setupEventListener(nftMint);
 
 
       if (ethereum) {
@@ -46,8 +61,12 @@ export default function Mints() {
       } else {
         console.log("Ethereum object doesn't exist!");
       }
-    } catch (error) {
-      console.log(error)
+    } catch ({ error }) {
+      toast.error(error?.message || 'error here :(', {
+        transition: Flip,
+        toastId: 'id--',
+        theme: getTheme(),
+      });
     } finally {
       setIsMining(false);
       setIsLoading(false);
@@ -55,7 +74,7 @@ export default function Mints() {
   }
 
   useEffect(() => {
-    setupEventListener();
+    setupEventListener(nftMint);
   }, []);
 
   return (
@@ -69,6 +88,12 @@ export default function Mints() {
         <div className="bio mb-3">
           Each unique. Each beautiful. Discover your NFT today.
           <span className="ft-20" aria-label="grin" role="img"> 🙃</span>
+
+          <a className="open-sea" href={config.openSeaUrl} target="_blank" rel="noopener noreferrer">
+            <img src="/imgs/opensea.svg" alt="opensea logo"/>
+
+            <span>OpenSea</span>
+          </a>
         </div>
 
         <button onClick={account ? askContractToMintNft : () => connectWallet(callback)} className="btn btn-outline-blue btn-task w-100">

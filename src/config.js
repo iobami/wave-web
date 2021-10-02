@@ -3,6 +3,7 @@ const ntfContractAddress = '0xFE0440187Fe6b925ecdAAE1603B46EEE9Bd3c13d' || proce
 
 export default {
   contractAddress,
+  openSeaUrl: 'https://testnets.opensea.io/collection/squarenft-e45ftndyti',
   ntfContractAddress,
   defaultProvider: 'rinkeby',
 };

@@ -282,7 +282,7 @@ export function openInNewTab(href) {
   }).click();
 }
 
-export const setupEventListener = async () => {
+export const setupEventListener = async (callback) => {
   // Most of this looks the same as our function askContractToMintNft
   try {
     const { ethereum } = window;
@@ -301,7 +301,7 @@ export const setupEventListener = async () => {
 
         const nftLink = `https://testnets.opensea.io/assets/${config.ntfContractAddress}/${tokenId.toNumber()}`;
 
-        alert(`Hey there! We've minted your NFT and sent it to your wallet. It may be blank right now. It can take a max of 10 min to show up on OpenSea. Here's the link: ${nftLink}`);
+        if (typeof callback === 'function') callback(nftLink);
 
         openInNewTab(nftLink);
       });

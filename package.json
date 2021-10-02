@@ -11,7 +11,8 @@
     "react-bar-loader": "^1.0.0",
     "react-dom": "^16.12.0",
     "react-router-dom": "^5.3.0",
-    "react-scripts": "3.2.0"
+    "react-scripts": "3.2.0",
+    "react-toastify": "^8.0.3"
   },
   "scripts": {
     "start": "react-scripts start",

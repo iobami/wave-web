@@ -68,7 +68,7 @@ export default function Header() {
                   <div className="content">
                     <span aria-label="mints" role="img">💥</span>
 
-                    <span className="ml-2">Mints | {nfts.minted} / {nfts.total}</span>
+                    <span className="ml-2">Mints | {nfts?.minted || 0} / {nfts?.total || 0}</span>
                   </div>
                 </Link>
 
