@@ -349,3 +349,13 @@ hr {
   font-size: 32px;
   font-weight: 600;
 }
+
+.build-space,
+.build-space:hover {
+  background-image: linear-gradient(to left, rgb(203, 94, 238), rgb(12, 215, 228));
+  color: transparent;
+  background-clip: text;
+  font-weight: 500;
+  cursor: pointer;
+  font-size: 21px;
+}

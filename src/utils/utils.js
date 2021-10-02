@@ -315,3 +315,15 @@ export const setupEventListener = async (callback) => {
     console.log(error)
   }
 }
+
+export function handleTransactionError(payload) {
+  const msg = 'error here :(';
+
+  try {
+    const { error } = payload;
+    
+    return error?.message || payload?.message || msg;
+  } catch (error) {
+    return msg;
+  }
+}

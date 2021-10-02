@@ -5,7 +5,7 @@ import { toast, Flip } from 'react-toastify';
 import '../App.css';
 import { AppContext } from '../contexts';
 import contractABI from '../utils/MyEpicNFT.json';
-import { connectWallet, getBalance, getNftsData, getTheme, getTotalWaves, setupEventListener } from '../utils';
+import { connectWallet, getBalance, getNftsData, getTheme, getTotalWaves, handleTransactionError, setupEventListener } from '../utils';
 import config from '../config';
 
 const nftMint = (url) => {
@@ -72,8 +72,9 @@ export default function Mints() {
       } else {
         console.log("Ethereum object doesn't exist!");
       }
-    } catch ({ error }) {
-      toast.error(error?.message || 'error here :(', {
+    } catch (err) {
+      const message = handleTransactionError(err);
+      toast.error(message, {
         transition: Flip,
         toastId: 'id--',
         theme: getTheme(),
@@ -105,10 +106,12 @@ export default function Mints() {
 
             <span>OpenSea</span>
           </a>
+
+          <a href="https://twitter.com/_buildspace" target="_blank" rel="noopener noreferrer" className="build-space">powered by _buildspace</a>
         </div>
 
         <button onClick={account ? askContractToMintNft : () => connectWallet(callback)} className="btn btn-outline-blue btn-task w-100">
-          {isLoading ? (isMining ? 'Mining...' : 'Loading...') : 'Let\'s mint !'}
+          {isLoading ? (isMining ? 'Minting...' : 'Loading...') : 'Let\'s mint !'}
         </button>
 
         {!account && (
