@@ -1,26 +1,55 @@
-import React, { useContext, useEffect, useState } from 'react';
+import { ethers } from 'ethers';
+import React, { useContext, useState } from 'react';
 
 import '../App.css';
 import { AppContext } from '../contexts';
-import { connectWallet, getAllWaves, getBalance, getTotalWaves } from '../utils';
+import contractABI from '../utils/MyEpicNFT.json';
+import { connectWallet, getBalance, getTotalWaves, openInNewTab } from '../utils';
+import config from '../config';
 
 export default function Mints() {
-  const [{ account, isMining }, { setAccount, setBalance, setWaves }] = useContext(AppContext);
+  const [{ account, isMining }, { setAccount, setBalance, setIsMining, setWaves }] = useContext(AppContext);
 
-  const [isLoading] = useState(false);
-  const [, setAllWaves] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   const callback = (account) => {
     setAccount(account);
 
     getBalance().then((value) => setBalance(value));
     getTotalWaves().then((value) => setWaves(value));
-    getAllWaves(setAllWaves);
   };
 
-  useEffect(() => {
-    getAllWaves(setAllWaves);
-  }, []);
+  const askContractToMintNft = async () => {
+    const CONTRACT_ADDRESS = config.ntfContractAddress;
+      try {
+        const { ethereum } = window;
+        setIsLoading(true);
+  
+        if (ethereum) {
+          const provider = new ethers.providers.Web3Provider(ethereum);
+          const signer = provider.getSigner();
+          const connectedContract = new ethers.Contract(CONTRACT_ADDRESS, contractABI.abi, signer);
+  
+          console.log("Going to pop wallet now to pay gas...")
+          let nftTxn = await connectedContract.makeAnEpicNFT();
+  
+          setIsMining(true);
+          console.log("Mining...please wait.")
+          await nftTxn.wait();
+          
+          console.log(`Mined, see transaction: https://rinkeby.etherscan.io/tx/${nftTxn.hash}`);
+          openInNewTab(`https://rinkeby.etherscan.io/tx/${nftTxn.hash}`);
+  
+        } else {
+          console.log("Ethereum object doesn't exist!");
+        }
+      } catch (error) {
+        console.log(error)
+      } finally {
+        setIsMining(false);
+        setIsLoading(false);
+      }
+  }
 
   return (
     <div className="mainContainer">
@@ -35,7 +64,7 @@ export default function Mints() {
           <span className="ft-20" aria-label="grin" role="img"> 🙃</span>
         </div>
 
-        <button type="submit" className="btn btn-outline-blue btn-task w-100">
+        <button onClick={account ? askContractToMintNft : () => connectWallet(callback)} className="btn btn-outline-blue btn-task w-100">
           {isLoading ? (isMining ? 'Mining...' : 'Loading...') : 'Let\'s mint !'}
         </button>
 

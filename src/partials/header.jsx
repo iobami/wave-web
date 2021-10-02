@@ -38,7 +38,9 @@ export default function Header() {
 
   return (
     <Fragment>
-      <BarLoader color="#4447E2" height={isMining ? '1' : '0'} />
+      {isMining && (
+        <BarLoader color="#4447E2" height="2" />
+      )}
 
       <div className="tri-bloom-header">
         <div className="wrapper-size h-100">
