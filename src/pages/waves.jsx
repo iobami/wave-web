@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { toast, Flip } from 'react-toastify';
 import { ethers, utils } from 'ethers';
 
 import '../App.css';
 import { AppContext } from '../contexts';
-import { connectWallet, getAllWaves, getBalance, getMessageTime, getTotalWaves } from '../utils';
+import { connectWallet, getAllWaves, getBalance, getMessageTime, getTheme, getTotalWaves } from '../utils';
 import contractABI from '../utils/WavePortal.json';
 import { WaveItem } from '../components';
 import config from '../config';
@@ -27,6 +28,16 @@ export default function Home() {
 
   const wave = async () => {
     try {
+      if (window?.ethereum?.networkVersion !== '4') {
+        toast.error('sorry, this app currently works on rinkeby :(', {
+          transition: Flip,
+          toastId: 'id--',
+          theme: getTheme(),
+        });
+
+        return;
+      }
+
       const { ethereum } = window;
       setIsLoading(true);
 
