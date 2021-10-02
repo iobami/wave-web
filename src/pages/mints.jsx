@@ -37,7 +37,18 @@ export default function Mints() {
 
   const askContractToMintNft = async () => {
     const CONTRACT_ADDRESS = config.ntfContractAddress;
+
     try {
+      if (window?.ethereum?.networkVersion !== '4') {
+        toast.error('sorry, this app currently works on rinkeby :(', {
+          transition: Flip,
+          toastId: 'id--',
+          theme: getTheme(),
+        });
+
+        return;
+      }
+
       const { ethereum } = window;
       setIsLoading(true);
 
@@ -90,7 +101,7 @@ export default function Mints() {
           <span className="ft-20" aria-label="grin" role="img"> 🙃</span>
 
           <a className="open-sea" href={config.openSeaUrl} target="_blank" rel="noopener noreferrer">
-            <img src="/imgs/opensea.svg" alt="opensea logo"/>
+            <img src="/imgs/opensea.svg" alt="opensea logo" />
 
             <span>OpenSea</span>
           </a>
