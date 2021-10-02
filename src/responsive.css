@@ -49,6 +49,10 @@
   .tri-bloom-header .mints {
     display: none !important;
   }
+
+  .mid-routes {
+    min-width: fit-content;
+  }
   
   .hide-lg-desktop {
     display: none !important;
@@ -60,6 +64,10 @@
 
   .show-lg-table {
     display: table-cell !important;
+  }
+
+  .header {
+    font-size: 24px;
   }
 }
 

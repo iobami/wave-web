@@ -1,5 +1,5 @@
-import React, { Fragment, useContext, useRef } from 'react';
-import { Link } from 'react-router-dom';
+import React, { Fragment, useContext, useLayoutEffect, useState, useRef } from 'react';
+import { Link, useHistory } from 'react-router-dom';
 import BarLoader from 'react-bar-loader';
 
 import { CoinStack, Logo, NavDropdown, PlusBlue } from '../components';
@@ -13,12 +13,33 @@ const middleItems = [
   // { icon: <Question />, title: 'Help', route: routes.dashboardEntry.path }
 ];
 
+function useWindowSize() {
+  const [size, setSize] = useState([0, 0]);
+
+  useLayoutEffect(() => {
+    function updateSize() {
+      setSize([window.innerWidth, window.innerHeight]);
+    }
+
+    window.addEventListener('resize', updateSize);
+    updateSize();
+
+    return () => window.removeEventListener('resize', updateSize);
+  }, []);
+
+  return size;
+}
+
 export default function Header() {
   const [{ account, balance, isMining, nfts, waves }, { setAccount, setBalance, setWaves }] = useContext(AppContext);
+
+  const { location } = useHistory();
 
   const navToggleRef = useRef(null);
 
   const [showDropdown, setShowDropdown, navDropdownRef] = useOutsideClick(false, navToggleRef);
+
+  const size = useWindowSize();
 
   const toggleDropdown = () => {
     let show = false;
@@ -34,6 +55,30 @@ export default function Header() {
 
     getBalance().then((value) => setBalance(value));
     getTotalWaves().then((value) => setWaves(value));
+  };
+
+  const MainRoute = () => {
+    if (location?.pathname === routes.mints.path && window.innerWidth < 767.98) {
+      return (
+        <Link to={routes.mints.path}>
+          <div className="content">
+            <span aria-label="mints" role="img">💥</span>
+
+            <span className="ml-2">Mints | {nfts?.minted || 0} / {nfts?.total || 0}</span>
+          </div>
+        </Link>
+      );
+    }
+
+    return (
+      <Link to={routes.dashboardEntry.path}>
+        <div>
+          <span aria-label="wave" role="img">👋</span>
+
+          <span className="ml-2">Waves | {waves || 0}</span>
+        </div>
+      </Link>
+    );
   };
 
   return (
@@ -54,13 +99,7 @@ export default function Header() {
             )}
 
             <div className="d-flex justify-content-start align-items-center h-100 mid-routes">
-              <Link to={routes.dashboardEntry.path}>
-                <div>
-                  <span aria-label="wave" role="img">👋</span>
-
-                  <span className="ml-2">Waves | {waves || 0}</span>
-                </div>
-              </Link>
+              <MainRoute key={size.innerWidth} />
 
 
               <div className="mints">
