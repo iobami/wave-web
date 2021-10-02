@@ -7,7 +7,7 @@ import { useActiveRoute } from '../hooks';
 export default function Footer() {
   const bottomItems = [
     { icon: <Grid id="footer" />, title: 'Waves', route: routes.dashboardEntry.path },
-    // { icon: <Globe id="footer" />, title: 'News', route: '/news' },
+    { icon: <span aria-label="mints" role="img">💥</span>, title: 'Mints', route: routes.mints.path },
     // { icon: <Question id="footer" />, title: 'Help', route: '/help' },
     { icon: <Menu id="footer" />, title: 'Menu', route: routes.menu.path }
   ];

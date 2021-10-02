@@ -51,7 +51,7 @@ export default function Header() {
               </div>
             )}
 
-            <div className="d-flex justify-content-start align-items-center h-100">
+            <div className="d-flex justify-content-start align-items-center h-100 mid-routes">
               <Link to={routes.dashboardEntry.path}>
                 <div>
                   <span aria-label="wave" role="img">👋</span>
@@ -64,7 +64,7 @@ export default function Header() {
               <div className="mints">
                 <Link to={routes.mints.path}>
                   <div className="content">
-                    <span aria-label="wave" role="img">💥</span>
+                    <span aria-label="mints" role="img">💥</span>
 
                     <span className="ml-2">Mints | WIP</span>
                   </div>
@@ -73,7 +73,7 @@ export default function Header() {
               </div>
             </div>
 
-            <div className="d-flex justify-content-start align-items-center h-100 hide-lg-desktop mid-routes">
+            <div className="d-flex justify-content-start align-items-center h-100 hide-lg-desktop">
               {middleItems.map(({ icon, title, route }, index) => (
                 <Link key={index} to={route}>
                   <div className={`nav route--item ${isActive(route)}`}>

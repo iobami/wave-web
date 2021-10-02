@@ -45,6 +45,10 @@
     position: fixed;
     bottom: 0;
   }
+
+  .tri-bloom-header .mints {
+    display: none !important;
+  }
   
   .hide-lg-desktop {
     display: none !important;
