@@ -14,7 +14,7 @@ const middleItems = [
 ];
 
 export default function Header() {
-  const [{ account, balance, isMining, waves }, { setAccount, setBalance, setWaves }] = useContext(AppContext);
+  const [{ account, balance, isMining, nfts, waves }, { setAccount, setBalance, setWaves }] = useContext(AppContext);
 
   const navToggleRef = useRef(null);
 
@@ -68,7 +68,7 @@ export default function Header() {
                   <div className="content">
                     <span aria-label="mints" role="img">💥</span>
 
-                    <span className="ml-2">Mints | WIP</span>
+                    <span className="ml-2">Mints | {nfts.minted} / {nfts.total}</span>
                   </div>
                 </Link>
 

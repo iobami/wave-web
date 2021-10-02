@@ -187,6 +187,30 @@ export const getAllWaves = async (callback) => {
   }
 }
 
+export const getNftsData = async () => {
+  try {
+    const { ethereum } = window;
+
+    if (ethereum) {
+      const userIsConnected = await checkIfUserConnectedWallet();
+
+      if (!userIsConnected) return 0;
+
+      const provider = new ethers.providers.Web3Provider(ethereum);
+      const signer = provider.getSigner();
+
+      const waveportalContract = new ethers.Contract(config.ntfContractAddress, nftContractABI.abi, signer);
+
+      let minted = await waveportalContract.getTotalNFTsMintedSoFar();
+      let total = await waveportalContract.getTotalNFTs();
+
+      return { minted: minted.toNumber(), total: total.toNumber() };
+    }
+  } catch (error) {
+    return { minted: 0, total: 0 };
+  }
+};
+
 export function getMessageTime(date) {
   try {
     let message = 'just now';

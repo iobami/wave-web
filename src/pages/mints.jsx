@@ -4,11 +4,11 @@ import React, { useContext, useEffect, useState } from 'react';
 import '../App.css';
 import { AppContext } from '../contexts';
 import contractABI from '../utils/MyEpicNFT.json';
-import { connectWallet, getBalance, getTotalWaves, setupEventListener } from '../utils';
+import { connectWallet, getBalance, getNftsData, getTotalWaves, setupEventListener } from '../utils';
 import config from '../config';
 
 export default function Mints() {
-  const [{ account, isMining }, { setAccount, setBalance, setIsMining, setWaves }] = useContext(AppContext);
+  const [{ account, isMining }, { setAccount, setBalance, setIsMining, setNfts, setWaves }] = useContext(AppContext);
 
   const [isLoading, setIsLoading] = useState(false);
 
@@ -17,6 +17,7 @@ export default function Mints() {
 
     getBalance().then((value) => setBalance(value));
     getTotalWaves().then((value) => setWaves(value));
+    getNftsData().then((value) => setNfts(value));
   };
 
   const askContractToMintNft = async () => {
