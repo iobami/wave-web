@@ -301,3 +301,23 @@ hr {
   width: 60%;
   margin: auto;
 }
+
+.tri-bloom-header .mints {
+  margin: auto;
+  margin-left: 1rem;
+  padding-left: 0.5rem;
+  height: 55%;
+  border-left: 1px solid var(--tx-main-color);
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.tri-bloom-header a {
+  color: var(--tx-main-color);
+}
+
+.tri-bloom-header a:hover {
+  opacity: 0.7;
+}

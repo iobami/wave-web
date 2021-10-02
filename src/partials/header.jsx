@@ -5,7 +5,7 @@ import BarLoader from 'react-bar-loader';
 import { CoinStack, Logo, NavDropdown, PlusBlue } from '../components';
 import { AppContext } from '../contexts';
 import { useActiveRoute, useOutsideClick } from '../hooks';
-import { connectWallet, getBalance, getTotalWaves } from '../utils';
+import { connectWallet, getBalance, getTotalWaves, routes } from '../utils';
 
 const middleItems = [
   // { icon: <Grid />, title: 'Waves', route: routes.dashboardEntry.path },
@@ -28,7 +28,7 @@ export default function Header() {
   };
 
   const [isActive] = useActiveRoute();
-  
+
   const connect = () => {
     connectWallet(setAccount);
 
@@ -52,9 +52,25 @@ export default function Header() {
             )}
 
             <div className="d-flex justify-content-start align-items-center h-100">
-              <span aria-label="wave" role="img">👋</span>
+              <Link to={routes.dashboardEntry.path}>
+                <div>
+                  <span aria-label="wave" role="img">👋</span>
 
-            <span className="ml-2">Waves | {waves || 0}</span>
+                  <span className="ml-2">Waves | {waves || 0}</span>
+                </div>
+              </Link>
+
+
+              <div className="mints">
+                <Link to={routes.mints.path}>
+                  <div className="content">
+                    <span aria-label="wave" role="img">💥</span>
+
+                    <span className="ml-2">Mints | WIP</span>
+                  </div>
+                </Link>
+
+              </div>
             </div>
 
             <div className="d-flex justify-content-start align-items-center h-100 hide-lg-desktop mid-routes">

@@ -1,5 +1,6 @@
 import Waves from '../pages/waves';
 import Menu from '../pages/menu';
+import Mints from '../pages/mints';
 
 export const routes = {
   dashboardEntry: {
@@ -9,5 +10,9 @@ export const routes = {
   menu: {
     path: '/menu',
     component: Menu,
+  },
+  mints: {
+    path: '/mints',
+    component: Mints,
   },
 };
