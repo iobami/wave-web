@@ -13,7 +13,7 @@ export default function WaveItem({ account, sent, wave }) {
 
   return (
     <Fragment>
-      <div className={`track-list-item mt-3 ${myMessage ? 'personal' : ''} ${sent ? '' : 'w-100'}`}>
+      <div className={`track-list-item mt-4 ${myMessage ? 'personal' : ''} ${sent ? '' : ''}`}>
         <div className="d-flex justify-content-between align-items-start position-relative mb-0">
           <span className="message">{wave.message}</span>
 
@@ -23,17 +23,18 @@ export default function WaveItem({ account, sent, wave }) {
 
       <style jsx="true">{`
         .track-list-item {
-          width: 90%;
+          max-width: 90%;
+          width: max-content;
           height: fit-content;
         
           background: var(--bg-second-color);
-          border-radius: 15px;
-          padding: 20px;
+          border-radius: 9px;
+          padding: 3px 8px;
         
           display: flex;
           flex-direction: column;
           justify-content: space-between;
-        }  
+        } 
 
         .track-list-item.personal {
           margin-left: auto;
@@ -49,11 +50,17 @@ export default function WaveItem({ account, sent, wave }) {
 
         .track-list-item span.time {
           min-width: max-content;
-          font-size: 12px;
-          opacity: 0.8;
+          font-size: 11px;
+          opacity: 0.75;
           position: absolute;
-          right: -10px;
-          top: -16px;
+          left: -7px;
+          top: -18px;
+        }
+
+        .track-list-item.personal span.time {
+          left: auto;
+          right: -7px;
+          color: var(--tx-main-color);
         }
 
         @media (max-width: 767.98px) {
