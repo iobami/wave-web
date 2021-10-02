@@ -128,7 +128,7 @@ export default function Home() {
           <span className="ft-20" aria-label="grin" role="img"> 🙃</span>
         </div>
 
-        <form className="needs-validation" novalidate onSubmit={onSubmit}>
+        <form className="needs-validation" noValidate onSubmit={onSubmit}>
           <div className="col-12 px-0 mb-3">
             <input
               type="text"
