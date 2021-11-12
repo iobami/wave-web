@@ -107,7 +107,7 @@ export default function Mints() {
             <span>OpenSea</span>
           </a>
 
-          <a href="https://twitter.com/_buildspace" target="_blank" rel="noopener noreferrer" className="build-space">powered by _buildspace</a>
+          {false && <a href="https://twitter.com/_buildspace" target="_blank" rel="noopener noreferrer" className="build-space">powered by _buildspace</a>}
         </div>
 
         <button onClick={account ? askContractToMintNft : () => connectWallet(callback)} className="btn btn-outline-blue btn-task w-100">

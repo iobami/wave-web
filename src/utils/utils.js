@@ -129,10 +129,8 @@ export const getTotalWaves = async () => {
     if (ethereum) {
       const userIsConnected = await checkIfUserConnectedWallet();
 
-      if (!userIsConnected) return 0;
-
-      const provider = new ethers.providers.Web3Provider(ethereum);
-      const signer = provider.getSigner();
+      const provider = userIsConnected ? new ethers.providers.Web3Provider(ethereum) : ethers.getDefaultProvider(config.defaultProvider);
+      const signer = userIsConnected ? provider.getSigner() : provider;
 
       const waveportalContract = new ethers.Contract(contractAddress, contractABI.abi, signer);
 
@@ -194,10 +192,8 @@ export const getNftsData = async () => {
     if (ethereum) {
       const userIsConnected = await checkIfUserConnectedWallet();
 
-      if (!userIsConnected) return 0;
-
-      const provider = new ethers.providers.Web3Provider(ethereum);
-      const signer = provider.getSigner();
+      const provider = userIsConnected ? new ethers.providers.Web3Provider(ethereum) : ethers.getDefaultProvider(config.defaultProvider);
+      const signer = userIsConnected ? provider.getSigner() : provider;
 
       const waveportalContract = new ethers.Contract(config.ntfContractAddress, nftContractABI.abi, signer);
 
